@@ -10,9 +10,8 @@ class IlmBaseConan(ConanFile):
     url = "https://github.com/Mikayex/conan-ilmbase.git"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "namespace_versioning": [True, False], "fPIC": [True, False]}
-    default_options = "shared=True", "namespace_versioning=True", "fPIC=False"
+    default_options = "shared=False", "namespace_versioning=True", "fPIC=False"
     generators = "cmake"
-    build_policy = "missing"
     exports = "FindIlmBase.cmake"
 
     def config_options(self):
@@ -40,11 +39,7 @@ conan_basic_setup()""")
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions.update(
-            { "BUILD_SHARED_LIBS": self.options.shared
-            , "NAMESPACE_VERSIONING": self.options.namespace_versioning
-            , "CMAKE_INSTALL_PREFIX": "install"
-            })
+        cmake.definitions["NAMESPACE_VERSIONING"] = self.options.namespace_versioning
         if "fPIC" in self.options.fields:
             cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
 
@@ -77,7 +72,6 @@ conan_basic_setup()""")
 
         if self.options.shared and self.settings.os == "Windows":
             self.cpp_info.defines.append("OPENEXR_DLL")
-        self.cpp_info.bindirs = ["bin"]
         self.cpp_info.includedirs = ['include', 'include/OpenEXR']
         self.cpp_info.libs = ["Imath" + version_suffix, "IexMath" + version_suffix, "Half", "Iex" + version_suffix,
                               "IlmThread" + version_suffix]
