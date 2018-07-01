@@ -7,7 +7,7 @@ class IlmBaseConan(ConanFile):
     description = "IlmBase is a component of OpenEXR. OpenEXR is a high dynamic-range (HDR) image file format developed by Industrial Light & Magic for use in computer imaging applications."
     version = "2.2.0"
     license = "BSD"
-    url = "https://github.com/Mikayex/conan-ilmbase.git"
+    url = "https://github.com/karasusan/conan-ilmbase.git"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "namespace_versioning": [True, False], "fPIC": [True, False]}
     default_options = "shared=False", "namespace_versioning=True", "fPIC=False"

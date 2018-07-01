@@ -6,10 +6,10 @@ environment:
     PYTHON_ARCH: "32"
 
     CONAN_REFERENCE: "IlmBase/2.2.0"
-    CONAN_USERNAME: "Mikayex"
-    CONAN_LOGIN_USERNAME: "Mikayex"
+    CONAN_USERNAME: "kazuki"
+    CONAN_LOGIN_USERNAME: "kazuki"
     CONAN_CHANNEL: "stable"
-    CONAN_UPLOAD: "https://api.bintray.com/conan/mikayex/conan-packages"
+    CONAN_UPLOAD: "https://api.bintray.com/conan/kazuki/conan"
 
     matrix:
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
