@@ -5,11 +5,22 @@ set(ILMBASE_INCLUDE_DIR  "${ILMBASE_INCLUDE_DIRS}")
 set(ILMBASE_LIBRARY_DIR  "${ILMBASE_LIBRARY_DIRS}")
 
 set(ILMBASE_LIBRARIES "")
+
+# static library extension 
+# lib = Microsoft Visual Studio
+# a = Unix (also MacOS)
+set(LIB_EXTENSION "a")
+if (MSVC)
+    set(LIB_EXTENSION "lib")
+endif (MSVC)
+
 foreach (LIBNAME ${CONAN_LIBS_ILMBASE})
     string(REGEX MATCH "[^-]+" LIBNAME_STEM ${LIBNAME})
-    find_library(ILMBASE_${LIBNAME_STEM}_LIBRARY NAMES ${LIBNAME} PATHS ${ILMBASE_LIBRARY_DIRS})
-    list(APPEND ILMBASE_LIBRARIES "${ILMBASE_${LIBNAME_STEM}_LIBRARY}")
+
+    set(ILMBASE_${LIBNAME_STEM}_LIBRARY "${ILMBASE_LIBRARY_DIRS}/lib${LIBNAME}.${LIB_EXTENSION}")
+    list(APPEND ILMBASE_LIBRARIES ILMBASE_${LIBNAME_STEM}_LIBRARY)
 endforeach()
+
 set(ILMBASE_LIBRARY "${ILMBASE_LIBRARIES}")
 
 foreach (INCLUDE_DIR ${ILMBASE_INCLUDE_DIRS})
@@ -23,7 +34,7 @@ foreach (INCLUDE_DIR ${ILMBASE_INCLUDE_DIRS})
 endforeach()
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(IlmBase
+find_package_handle_standard_args( IlmBase
     REQUIRED_VARS
         ILMBASE_INCLUDE_DIRS
         ILMBASE_LIBRARIES
